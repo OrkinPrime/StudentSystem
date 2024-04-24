@@ -1,0 +1,36 @@
+
+<html>
+<head>
+    <meta charset=" utf-8">
+    <script>
+        var arrayNation = (List(String))
+
+        function createSelect(name, str){
+            var _select = document.createElement("select");
+            var firstOption = document.createElement("option");
+            firstOption.value = "------select------";
+            firstOption.text = "------请选择------";
+            _select.appendChild(firstOption);
+            for ( i = 0; i < str.length; i++){
+                var _option = document.createElement("option");
+                _option.value = str[i];
+                _option.text = str[i];
+                if (name == str[i]){
+                    _option.selected = "true";
+                }
+                _select.appendChild(_option);
+            }
+            return _select;
+        }
+    </script>
+</head>
+<body>
+<form name="form1" action="stu/servlet/SelectAllClassNameServlet.java">
+    <div onclick="javascript:sub()">提交</div>
+</form>
+<div id="nation">班级：</div>
+<script>
+    document.getElementById("nation").appendChild(createSelect('',arrayNation));
+</script>
+</body>
+</html>

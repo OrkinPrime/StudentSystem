@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappers.Stumapper">
+    <resultMap id="studentClassResultMap" type="Stu_Class">
+        <id property="stu_id" column="stu_id"/>
+        <result property="stu_name" column="stu_name"/>
+        <result property="stu_no" column="stu_no"/>
+        <result property="classInfo.class_id" column="class_id"/>
+        <result property="classInfo.class_name" column="class_name"/>
+        <result property="classInfo.department" column="department"/>
+    </resultMap>
+
+    <select id="selectAll" resultMap="studentClassResultMap">
+        SELECT *
+        FROM student
+        JOIN stu_class ON student.class_id = stu_class.class_id;
+    </select>
+
+    <select id="searchstu" parameterType="map" resultMap="studentClassResultMap">
+        SELECT s.stu_id, s.stu_name, s.stu_no, c.class_name, c.department
+        FROM student s
+        LEFT JOIN stu_class c ON s.class_id = c.class_id
+        <where>
+            1=1
+            <if test="stu_id != null and stu_id !=''">
+                AND s.stu_id = #{stu_id}
+            </if>
+            <if test="stu_name != null and stu_name !=''">
+                AND s.stu_name = #{stu_name}
+            </if>
+            <if test="stu_no != null and stu_no != ''">
+                AND s.stu_no = #{stu_no}
+            </if>
+            <if test="class_name != null and class_name !=''">
+                AND c.class_name = #{class_name}
+            </if>
+        </where>
+    </select>
+</mapper>
