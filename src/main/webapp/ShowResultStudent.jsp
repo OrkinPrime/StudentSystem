@@ -106,7 +106,7 @@
             cursor: pointer;
         }
 
-        form {
+        .formJ {
             width: 60%;
             height: 60%;
             display: flex;
@@ -136,9 +136,9 @@
     </style>
     <script>
         function checkInput() {
-            var requiredFields = ['stu_name_', 'stu_no_', 'class_name_'];
-            var isAllFilled = true;
-            for (var i = 0; i < requiredFields.length; i++) {
+            const requiredFields = ['stu_name_', 'stu_no_', 'class_name_'];
+            let isAllFilled = true;
+            for (let i = 0; i < requiredFields.length; i++) {
                 var fieldId = requiredFields[i];
                 var field = document.getElementById(fieldId);
                 if (field.tagName.toLowerCase() === 'input') {
@@ -179,15 +179,6 @@
             var modal = document.getElementById("myModal2");
             modal.style.display = "none";
         }
-        function showModal3() {
-            var modal = document.getElementById("myModal3");
-            modal.style.display = "block";
-        }
-
-        function closeModal3() {
-            var modal = document.getElementById("myModal3");
-            modal.style.display = "none";
-        }
     </script>
     <script>
         function loadClassList() {
@@ -220,19 +211,7 @@
                 option.text = classList[i];
                 select.appendChild(option);
             }
-            var select = document.getElementById('class_name_');
-            select.innerHTML = ''; // 清空现有选项
-            var optionV = document.createElement('option');
-            optionV.value = '';
-            optionV.text = "未分配班级";
-            select.appendChild(optionV);
-            for (var i = 0; i < classList.length; i++) {
-                var option = document.createElement('option');
-                option.value = classList[i];
-                option.text = classList[i];
-                select.appendChild(option);
-            }
-            var select = document.getElementById('class_name__');
+            select = document.getElementById('class_name_');
             select.innerHTML = ''; // 清空现有选项
             var optionV = document.createElement('option');
             optionV.value = '';
@@ -245,6 +224,7 @@
                 select.appendChild(option);
             }
         }
+
         window.onload = loadClassList;
     </script>
     <script>
@@ -252,7 +232,7 @@
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "DeleteStuServlet", true);
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhr.onreadystatechange = function() {
+            xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                 }
             };
@@ -284,10 +264,7 @@
                     out.println("查询结果为空。");
                 } else {
                     for (Stu_Class student : studentList) {
-                       String stu_id= student.getStu_id();
-                       String stu_name= student.getStu_name();
-                       String stu_no= student.getStu_no();
-                       String class_name= student.getClassInfo().getClass_name();
+                        String stu_id = student.getStu_id();
             %>
             <tr>
                 <td><%=student.getStu_name()%>
@@ -299,14 +276,24 @@
                 <td><%=student.getClassInfo().getDepartment()%>
                 </td>
                 <td>
-                    <button class="reset" onclick="setValues(<%=stu_id%>,<%=stu_name%>,<%=stu_no%>,<%=class_name%>)">修改</button>
-                    <button class="delete" onclick="deleteById(<%=stu_id%>)">删除</button>
+                        <div style="display: inline-block;">
+                            <form action="/SysOfStu_war_exploded/ResetStuServlet" method="get" accept-charset="UTF-8">
+                                <input  type="hidden" name="stu_id" value="<%=stu_id%>">
+                                <input  type="hidden" name="stu_name" value="<%=student.getStu_name()%>">
+                                <input  type="hidden" name="stu_no" value="<%=student.getStu_no()%>">
+                                <input  type="hidden" name="class_name" value="<%=student.getClassInfo().getClass_name()%>">
+                                <button class="reset" type="submit">修改</button>
+                            </form>
+                        </div>
+                        <div style="display: inline-block;">
+                            <button class="delete" onclick="deleteById(<%=stu_id%>)">删除</button>
+                        </div>
                 </td>
             </tr>
             <%
                     }
                 }
-                %>
+            %>
             </tbody>
         </table>
     </div>
@@ -316,7 +303,8 @@
         <span class="close" onclick="closeModal()">&times;</span>
         <h2>输入查询条件</h2>
         <section>
-            <form id="searchForm" action="/SysOfStu_war_exploded/SearchStuServlet" method="get" accept-charset="UTF-8">
+            <form class="formJ" id="searchForm" action="/SysOfStu_war_exploded/SearchStuServlet" method="get"
+                  accept-charset="UTF-8">
                 <label for="stu_id">ID:</label>
                 <input type="text" id="stu_id" name="stu_id">
 
@@ -340,7 +328,8 @@
         <span class="close" onclick="closeModal2()">&times;</span>
         <h2>输入学生信息</h2>
         <section>
-            <form id="insertForm" action="/SysOfStu_war_exploded/InsertOneServlet" onsubmit="return checkInput()"
+            <form class="formJ" id="insertForm" action="/SysOfStu_war_exploded/InsertOneServlet"
+                  onsubmit="return checkInput()"
                   method="get" accept-charset="UTF-8">
                 <label for="stu_name">姓名:</label>
                 <input type="text" id="stu_name_" name="stu_name">
@@ -357,23 +346,11 @@
         </section>
     </div>
 </div>
-<div id="myModal3" class="modal">
+<%--<div id="myModal3" class="modal">
     <div class="modal-content">
-        <span class="close" onclick="closeModal2()">&times;</span>
+        <span class="close" onclick="closeModal3()">&times;</span>
         <h2>修改学生信息</h2>
         <section>
-            <script>
-               function setValues(stu_id,stu_name,stu_no,class_name){
-                   reset_stu_id=stu_id;
-                   reset_stu_name=stu_name;
-                   reset_stu_no=stu_no;
-                   reset_class_name=class_name;
-
-                   document.getElementById("stu_id__").value(stu_id);
-                   document.getElementById("stu_name__").value(stu_name);
-                   document.getElementById("stu_no__").value(stu_no);
-               }
-            </script>
             <form id="resetForm" action="/SysOfStu_war_exploded/ResetStuServlet" onsubmit="return checkInput()"
                   method="get" accept-charset="UTF-8">
                 <input type="text" id="stu_id__" name="stu_id">
@@ -391,7 +368,7 @@
             </form>
         </section>
     </div>
-</div>
+</div>--%>
 
 </body>
 </html>
