@@ -35,9 +35,10 @@ public class Stu_Class{
     }
 
     public The_Class getClassInfo() {
+
         return classInfo;
     }
 
-    The_Class classInfo;
+    private The_Class classInfo;
 
 }

@@ -276,18 +276,18 @@
                 <td><%=student.getClassInfo().getDepartment()%>
                 </td>
                 <td>
-                        <div style="display: inline-block;">
-                            <form action="/SysOfStu_war_exploded/ResetStuServlet" method="get" accept-charset="UTF-8">
-                                <input  type="hidden" name="stu_id" value="<%=stu_id%>">
-                                <input  type="hidden" name="stu_name" value="<%=student.getStu_name()%>">
-                                <input  type="hidden" name="stu_no" value="<%=student.getStu_no()%>">
-                                <input  type="hidden" name="class_name" value="<%=student.getClassInfo().getClass_name()%>">
-                                <button class="reset" type="submit">修改</button>
-                            </form>
-                        </div>
-                        <div style="display: inline-block;">
-                            <button class="delete" onclick="deleteById(<%=stu_id%>)">删除</button>
-                        </div>
+                    <div style="display: inline-block;">
+                        <form action="/SysOfStu_war_exploded/ResetStuServlet" method="get" accept-charset="UTF-8">
+                            <input type="hidden" name="stu_id" value="<%=stu_id%>">
+                            <input type="hidden" name="stu_name" value="<%=student.getStu_name()%>">
+                            <input type="hidden" name="stu_no" value="<%=student.getStu_no()%>">
+                            <input type="hidden" name="class_name" value="<%=student.getClassInfo().getClass_name()%>">
+                            <button class="reset" type="submit">修改</button>
+                        </form>
+                    </div>
+                    <div style="display: inline-block;">
+                        <button class="delete" onclick="deleteById(<%=stu_id%>)">删除</button>
+                    </div>
                 </td>
             </tr>
             <%
@@ -346,29 +346,5 @@
         </section>
     </div>
 </div>
-<%--<div id="myModal3" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal3()">&times;</span>
-        <h2>修改学生信息</h2>
-        <section>
-            <form id="resetForm" action="/SysOfStu_war_exploded/ResetStuServlet" onsubmit="return checkInput()"
-                  method="get" accept-charset="UTF-8">
-                <input type="text" id="stu_id__" name="stu_id">
-                <label for="stu_name">姓名:</label>
-                <input type="text" id="stu_name__" name="stu_name">
-
-                <label for="stu_no">学号:</label>
-                <input type="text" id="stu_no__" name="stu_no">
-
-                <label for="class_name__">班级:</label>
-                <select id="class_name__" name="class_name">
-                </select>
-
-                <input type="submit" value="完成" class="btn">
-            </form>
-        </section>
-    </div>
-</div>--%>
-
 </body>
 </html>

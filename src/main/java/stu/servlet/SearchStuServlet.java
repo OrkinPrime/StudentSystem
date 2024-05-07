@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import stu.entity.Stu_Class;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +19,7 @@ import java.util.Map;
 
 @WebServlet("/SearchStuServlet")
 public class SearchStuServlet extends HttpServlet {
-    public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
         String stu_id = req.getParameter("stu_id");
         String stu_name = req.getParameter("stu_name");
         String stu_no = req.getParameter("stu_no");
@@ -36,22 +37,21 @@ public class SearchStuServlet extends HttpServlet {
         iS = Resources.getResourceAsStream(resource);
         SqlSessionFactory sqlSF = new SqlSessionFactoryBuilder().build(iS);
         sqlSession = sqlSF.openSession();
-        try {
-            List<Stu_Class> result = sqlSession.selectList("mappers.Stumapper.searchstu", params);
-            if (result.size() > 0) {
+        if (stu_id == null && stu_name == null && stu_no == null && class_name == null) {
+            List<Stu_Class> result = sqlSession.selectList("mappers.Stumapper.selectAll");
+            req.setAttribute("studentList", result);
+            req.getRequestDispatcher("ShowResultStudent.jsp").forward(req, res);
+        } else {
+            try {
+                List<Stu_Class> result = sqlSession.selectList("mappers.Stumapper.searchstu", params);
                 req.setAttribute("studentList", result);
                 req.getRequestDispatcher("ShowResultStudent.jsp").forward(req, res);
-            } else {
-                result = sqlSession.selectList("mappers.Stumapper.selectAll");
-
-                req.setAttribute("studentList", result);
-                req.getRequestDispatcher("ShowResultStudent.jsp").forward(req, res);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (sqlSession != null) {
-                sqlSession.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if (sqlSession != null) {
+                    sqlSession.close();
+                }
             }
         }
     }

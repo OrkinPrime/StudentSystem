@@ -22,7 +22,7 @@
     <input type="text" id="stu_no" name="stu_no" value="${stu_no}">
 
     <label>班级:</label>
-    <select name="className">
+    <select name="class_name">
         <c:forEach items="${classnamelist}" var="className">
             <c:choose>
                 <c:when test="${className eq class_name}">

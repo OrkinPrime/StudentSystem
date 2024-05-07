@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import stu.entity.Stu_Class;
 import stu.interf.StuMapper;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,13 +29,9 @@ public class DeleteStuServlet extends HttpServlet {
 
         String stu_Id = req.getParameter("stuId");
 
-        try (SqlSession session = sqlSessionFactory.openSession()) {
+        SqlSession session = sqlSessionFactory.openSession();
             StuMapper mapper = session.getMapper(StuMapper.class);
             mapper.deleteStuByID(Integer.parseInt(stu_Id));
             session.commit();
-            //List<Stu_Class> result = session.selectList("mappers.Stumapper.selectAll");
-           // req.setAttribute("studentList", result);
-        }
-        //resp.sendRedirect("ShowAllStudentServlet");
     }
 }
