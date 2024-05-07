@@ -276,7 +276,6 @@
                 <td><%=student.getClassInfo().getDepartment()%>
                 </td>
                 <td>
-                    <%--                    <button class="reset" onclick="setValues(<%=stu_id%>,<%=stu_name%>,<%=stu_no%>,<%=class_name%>)">修改</button>--%>
                         <div style="display: inline-block;">
                             <form action="/SysOfStu_war_exploded/ResetStuServlet" method="get" accept-charset="UTF-8">
                                 <input  type="hidden" name="stu_id" value="<%=stu_id%>">
