@@ -21,7 +21,7 @@
     <select id="searchstu" parameterType="map" resultMap="studentClassResultMap">
         SELECT s.stu_id, s.stu_name, s.stu_no, c.class_name, c.department
         FROM student s
-        LEFT JOIN stu_class c ON s.class_id = c.class_id
+        JOIN stu_class c ON s.class_id = c.class_id
         <where>
             1=1
             <if test="stu_id != null and stu_id !=''">

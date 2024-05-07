@@ -301,7 +301,7 @@
 <div id="myModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal()">&times;</span>
-        <h2>输入查询条件</h2>
+        <h2 style="margin: auto;text-align: center;padding: 20px">输入查询条件</h2>
         <section>
             <form class="formJ" id="searchForm" action="/SysOfStu_war_exploded/SearchStuServlet" method="get"
                   accept-charset="UTF-8">
@@ -326,7 +326,7 @@
 <div id="myModal2" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal2()">&times;</span>
-        <h2>输入学生信息</h2>
+        <h2 style="margin: auto;text-align: center;padding: 20px">输入学生信息</h2>
         <section>
             <form class="formJ" id="insertForm" action="/SysOfStu_war_exploded/InsertOneServlet"
                   onsubmit="return checkInput()"

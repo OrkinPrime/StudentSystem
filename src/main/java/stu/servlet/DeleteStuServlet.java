@@ -30,8 +30,8 @@ public class DeleteStuServlet extends HttpServlet {
         String stu_Id = req.getParameter("stuId");
 
         SqlSession session = sqlSessionFactory.openSession();
-            StuMapper mapper = session.getMapper(StuMapper.class);
-            mapper.deleteStuByID(Integer.parseInt(stu_Id));
-            session.commit();
+        StuMapper mapper = session.getMapper(StuMapper.class);
+        mapper.deleteStuByID(Integer.parseInt(stu_Id));
+        session.commit();
     }
 }

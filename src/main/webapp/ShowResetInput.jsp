@@ -10,9 +10,53 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>修改学生信息</title>
+<style>
+    div{
+        text-align: center;
+        margin: auto;
+        padding: 30px;
+    }
+    h1{
+        margin: 30px;
+        font-size: 40px;
+    }
+    form{
+        font-size: 18px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    form .btn {
+        margin-top: 10px;
+        cursor: pointer;
+        width: auto;
+    }
+    section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 8px;
+        width: 50%;
+        height: auto;
+        margin: auto;
+        box-shadow: 0 0 10px black;
+    }
+    label{
+        margin-inline-end:auto;
+    }
+    input,option,select{
+        font-size: 15px;
+    }
+    label{
+        margin-top: 10px;
+    }
+</style>
 </head>
 <body>
+<div>
+<h1>修改学生信息</h1>
+<section>
 <form action="/SysOfStu_war_exploded/ResetSubmitServlet" method="get" accept-charset="UTF-8">
     <input hidden="hidden" id="stu_id" name="stu_id" value="${stu_id}">
     <label>姓名:</label>
@@ -35,6 +79,7 @@
         </c:forEach>
     </select>
     <input type="submit" value="提交修改" class="btn">
-</form>
+</form></section>
+</div>
 </body>
 </html>
