@@ -8,12 +8,35 @@
     <style>
         table {
             border-collapse: collapse;
+            border-radius: 12px;
             margin: auto;
             width: 60%;
+            box-shadow: 1px 3px 10px 8px darkgray;
+        }
+        table tr:last-child td:first-child {
+            border-bottom-left-radius: 12px;
+            border-bottom: none;
+            border-left: none;
         }
 
+        table tr:last-child td:last-child {
+            border-bottom-right-radius: 12px;
+            border-bottom: none;
+            border-right: none;
+        }
+        table tr:first-child th:first-child {
+            border-top-left-radius: 12px;
+            border-left: none;
+            border-top: none;
+        }
+
+        table tr:first-child th:last-child {
+            border-top-right-radius: 12px;
+            border-top: none;
+            border-right: none;
+        }
         th, td {
-            border: 1px solid darkgray;
+            /*border: 1px solid darkgray;*/
             text-align: center;
             padding: 8px;
         }
@@ -85,7 +108,7 @@
         .modal-content {
             background-color: #fefefe;
             margin: 5% auto;
-            padding: 20px;
+            padding: 20px 20px 50px;
             border: 1px solid #888;
             width: 40%;
             height: auto;
@@ -245,11 +268,21 @@
 <div class="parent">
     <h1>学生信息</h1>
     <div class="child">
-        <button class="search" onclick="showModal()">查询</button>
-        <button class="insert" onclick="showModal2()">增加学生</button>
+        <div style="margin-block: auto 20px;">
+            <button class="search" style="margin: auto" onclick="showModal()">查询</button>
+            <button class="insert" style="margin: auto" onclick="showModal2()">增加学生</button>
+        </div>
+
+
+            <%
+                List<Stu_Class> studentList = (List<Stu_Class>) (request.getAttribute("studentList"));
+                if (studentList == null || studentList.isEmpty()) {
+                    out.println("<p style:'font-size:20px'>[查询结果为空]");
+                } else {
+                    %>
         <table>
-            <thead>
-            <tr>
+            <thead style="border: none">
+            <tr style="background-color: #eae8e8;">
                 <th>姓名</th>
                 <th>学号</th>
                 <th>班级</th>
@@ -259,13 +292,10 @@
             </thead>
             <tbody>
             <%
-                List<Stu_Class> studentList = (List<Stu_Class>) (request.getAttribute("studentList"));
-                if (studentList == null || studentList.isEmpty()) {
-                    out.println("查询结果为空。");
-                } else {
                     for (Stu_Class student : studentList) {
                         String stu_id = student.getStu_id();
             %>
+
             <tr>
                 <td><%=student.getStu_name()%>
                 </td>
@@ -275,19 +305,15 @@
                 </td>
                 <td><%=student.getClassInfo().getDepartment()%>
                 </td>
-                <td>
-                    <div style="display: inline-block;">
-                        <form action="/SysOfStu_war_exploded/ResetStuServlet" method="get" accept-charset="UTF-8">
-                            <input type="hidden" name="stu_id" value="<%=stu_id%>">
-                            <input type="hidden" name="stu_name" value="<%=student.getStu_name()%>">
-                            <input type="hidden" name="stu_no" value="<%=student.getStu_no()%>">
-                            <input type="hidden" name="class_name" value="<%=student.getClassInfo().getClass_name()%>">
-                            <button class="reset" type="submit">修改</button>
-                        </form>
-                    </div>
-                    <div style="display: inline-block;">
-                        <button class="delete" onclick="deleteById(<%=stu_id%>)">删除</button>
-                    </div>
+                <td style="text-align: center;padding: 5px">
+                    <form style="display: inline;" action="/SysOfStu_war_exploded/ResetStuServlet" method="get" accept-charset="UTF-8">
+                        <input type="hidden" name="stu_id" value="<%=stu_id%>">
+                        <input type="hidden" name="stu_name" value="<%=student.getStu_name()%>">
+                        <input type="hidden" name="stu_no" value="<%=student.getStu_no()%>">
+                        <input type="hidden" name="class_name" value="<%=student.getClassInfo().getClass_name()%>">
+                        <button class="reset" type="submit">修改</button>
+                    </form>
+                    <button style="display: inline;" class="delete" onclick="deleteById(<%=stu_id%>)">删除</button>
                 </td>
             </tr>
             <%
@@ -331,10 +357,10 @@
             <form class="formJ" id="insertForm" action="/SysOfStu_war_exploded/InsertOneServlet"
                   onsubmit="return checkInput()"
                   method="get" accept-charset="UTF-8">
-                <label for="stu_name">姓名:</label>
+                <label for="stu_name_">姓名:</label>
                 <input type="text" id="stu_name_" name="stu_name">
 
-                <label for="stu_no">学号:</label>
+                <label for="stu_no_">学号:</label>
                 <input type="text" id="stu_no_" name="stu_no">
 
                 <label for="class_name_">班级:</label>
