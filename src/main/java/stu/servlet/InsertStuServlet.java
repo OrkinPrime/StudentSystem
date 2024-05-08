@@ -33,7 +33,6 @@ public class InsertStuServlet extends HttpServlet {
         String stu_no = req.getParameter("stu_no");
         String class_name = req.getParameter("class_name");
 
-        mapper.selectClassId(class_name);
         String class_id=mapper.selectClassId(class_name);
         Student student = new Student(stu_name, stu_no,class_id);//获取到id后
         mapper.insertStudent(student);

@@ -15,7 +15,7 @@ import java.util.Map;
 public class Test{
 
     public static void main(String[] args) throws IOException {
-        String resource = "mybatis-cfg.xml";
+/*        String resource = "mybatis-cfg.xml";
         InputStream inputStream = Resources.getResourceAsStream(resource);
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
         SqlSession session = sqlSessionFactory.openSession();
@@ -29,6 +29,6 @@ public class Test{
         String class_id=mapper.selectClassId(class_name);
         System.out.println(class_id);
         Student student = new Student(stu_name, stu_no,class_id);//获取到id后
-        mapper.insertStudent(student);
+        mapper.insertStudent(student);*/
     }
 }
