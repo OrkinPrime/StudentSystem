@@ -26,11 +26,10 @@ public class DeleteStuServlet extends HttpServlet {
         String resource = "mybatis-cfg.xml";
         InputStream inputStream = Resources.getResourceAsStream(resource);
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-
-        String stu_Id = req.getParameter("stuId");
-
         SqlSession session = sqlSessionFactory.openSession();
         StuMapper mapper = session.getMapper(StuMapper.class);
+
+        String stu_Id = req.getParameter("stuId");
         mapper.deleteStuByID(Integer.parseInt(stu_Id));
         session.commit();
     }

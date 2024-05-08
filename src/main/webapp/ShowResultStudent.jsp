@@ -13,6 +13,7 @@
             width: 60%;
             box-shadow: 1px 3px 10px 8px darkgray;
         }
+
         table tr:last-child td:first-child {
             border-bottom-left-radius: 12px;
             border-bottom: none;
@@ -24,6 +25,7 @@
             border-bottom: none;
             border-right: none;
         }
+
         table tr:first-child th:first-child {
             border-top-left-radius: 12px;
             border-left: none;
@@ -35,6 +37,7 @@
             border-top: none;
             border-right: none;
         }
+
         th, td {
             /*border: 1px solid darkgray;*/
             text-align: center;
@@ -265,6 +268,7 @@
     </script>
 </head>
 <body>
+<%--页面显示主体--%>
 <div class="parent">
     <h1>学生信息</h1>
     <div class="child">
@@ -272,14 +276,12 @@
             <button class="search" style="margin: auto" onclick="showModal()">查询</button>
             <button class="insert" style="margin: auto" onclick="showModal2()">增加学生</button>
         </div>
-
-
-            <%
-                List<Stu_Class> studentList = (List<Stu_Class>) (request.getAttribute("studentList"));
-                if (studentList == null || studentList.isEmpty()) {
-                    out.println("<p style:'font-size:20px'>[查询结果为空]");
-                } else {
-                    %>
+        <%
+            List<Stu_Class> studentList = (List<Stu_Class>) (request.getAttribute("studentList"));
+            if (studentList == null || studentList.isEmpty()) {
+                out.println("<p style:'font-size:20px'>[查询结果为空]");
+            } else {
+        %>
         <table>
             <thead style="border: none">
             <tr style="background-color: #eae8e8;">
@@ -292,10 +294,9 @@
             </thead>
             <tbody>
             <%
-                    for (Stu_Class student : studentList) {
-                        String stu_id = student.getStu_id();
+                for (Stu_Class student : studentList) {
+                    String stu_id = student.getStu_id();
             %>
-
             <tr>
                 <td><%=student.getStu_name()%>
                 </td>
@@ -306,7 +307,8 @@
                 <td><%=student.getClassInfo().getDepartment()%>
                 </td>
                 <td style="text-align: center;padding: 5px">
-                    <form style="display: inline;" action="/SysOfStu_war_exploded/ResetStuServlet" method="get" accept-charset="UTF-8">
+                    <form style="display: inline;" action="/SysOfStu_war_exploded/ResetStuServlet" method="get"
+                          accept-charset="UTF-8">
                         <input type="hidden" name="stu_id" value="<%=stu_id%>">
                         <input type="hidden" name="stu_name" value="<%=student.getStu_name()%>">
                         <input type="hidden" name="stu_no" value="<%=student.getStu_no()%>">
@@ -324,6 +326,7 @@
         </table>
     </div>
 </div>
+<%--查询弹窗--%>
 <div id="myModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal()">&times;</span>
@@ -349,6 +352,7 @@
         </section>
     </div>
 </div>
+<%--插入弹窗--%>
 <div id="myModal2" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal2()">&times;</span>
@@ -367,7 +371,7 @@
                 <select id="class_name_" name="class_name">
                 </select>
 
-                <input type="submit" value="完成" class="btn">
+                <input type="submit" value="插入" class="btn">
             </form>
         </section>
     </div>

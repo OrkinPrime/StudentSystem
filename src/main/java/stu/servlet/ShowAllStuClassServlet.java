@@ -23,8 +23,8 @@ public class ShowAllStuClassServlet extends HttpServlet {
         InputStream inputStream = Resources.getResourceAsStream(resource);
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
         SqlSession session = sqlSessionFactory.openSession();
-        List<Stu_Class> result = session.selectList("mappers.Stumapper.selectAll");
 
+        List<Stu_Class> result = session.selectList("mappers.Stumapper.selectAll");
         req.setAttribute("studentList", result);
         req.getRequestDispatcher("ShowResultStudent.jsp").forward(req, resp);
     }

@@ -33,16 +33,13 @@ public class ResetSubmitServlet extends HttpServlet {
         InputStream inputStream = Resources.getResourceAsStream(resource);
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 
-        try (SqlSession session = sqlSessionFactory.openSession()) {
-            StuMapper mapper = session.getMapper(StuMapper.class);
-            Student student = new Student(stu_id, stu_name, stu_no, mapper.selectClassId(class_name));
-            mapper.updateStu(student);
-            session.commit();
-        }
-        //调用ShowAllStudentServlet,参数为空，以显示修改后的所有数据
         SqlSession session = sqlSessionFactory.openSession();
+        StuMapper mapper = session.getMapper(StuMapper.class);
+        Student student = new Student(stu_id, stu_name, stu_no, mapper.selectClassId(class_name));
+        mapper.updateStu(student);
+        session.commit();
+        //调用ShowAllStudentServlet,参数为空，以显示修改后的所有数据
         List<Stu_Class> result = session.selectList("mappers.Stumapper.selectAll");
-
         req.setAttribute("studentList", result);
         req.getRequestDispatcher("ShowResultStudent.jsp").forward(req, resp);
 
