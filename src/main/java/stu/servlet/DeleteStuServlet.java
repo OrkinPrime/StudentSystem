@@ -7,7 +7,6 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import stu.entity.Stu_Class;
 import stu.interf.StuMapper;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,15 +21,20 @@ public class DeleteStuServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String resource = "mybatis-cfg.xml";
         InputStream inputStream = Resources.getResourceAsStream(resource);
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
         SqlSession session = sqlSessionFactory.openSession();
         StuMapper mapper = session.getMapper(StuMapper.class);
 
-        String stu_Id = req.getParameter("stuId");
+        String stu_Id = req.getParameter("stu_id");
         mapper.deleteStuByID(Integer.parseInt(stu_Id));
         session.commit();
+
+        List<Stu_Class> result = session.selectList("mappers.Stumapper.selectAll");
+
+        req.setAttribute("studentList", result);
+        req.getRequestDispatcher("ShowResultStudent.jsp").forward(req, resp);
     }
 }

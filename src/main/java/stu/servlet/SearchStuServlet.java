@@ -37,6 +37,7 @@ public class SearchStuServlet extends HttpServlet {
         iS = Resources.getResourceAsStream(resource);
         SqlSessionFactory sqlSF = new SqlSessionFactoryBuilder().build(iS);
         sqlSession = sqlSF.openSession();
+
         if (stu_id == null && stu_name == null && stu_no == null && class_name == null) {
             List<Stu_Class> result = sqlSession.selectList("mappers.Stumapper.selectAll");
             req.setAttribute("studentList", result);

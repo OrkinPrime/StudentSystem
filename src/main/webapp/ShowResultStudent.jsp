@@ -315,7 +315,11 @@
                         <input type="hidden" name="class_name" value="<%=student.getClassInfo().getClass_name()%>">
                         <button class="reset" type="submit">修改</button>
                     </form>
-                    <button style="display: inline;" class="delete" onclick="deleteById(<%=stu_id%>)">删除</button>
+                    <form style="display: inline;" action="/SysOfStu_war_exploded/DeleteStuServlet" method="get"
+                          accept-charset="UTF-8">
+                        <input type="hidden" name="stu_id" value="<%=stu_id%>">
+                        <button class="delete" type="submit">删除</button>
+                    </form>
                 </td>
             </tr>
             <%
